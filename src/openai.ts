@@ -54,8 +54,10 @@ export async function makeRequest(
   };
 
   try {
+    // https://learn.microsoft.com/en-us/azure/ai-services/openai/reference#completions
+    // POST https://{your-resource-name}.openai.azure.com/openai/deployments/{deployment-id}/completions?api-version={api-version}
     // const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    const response = await fetch(`${ENDPOINT}/v1/chat/completions`, {
+    const response = await fetch(`${ENDPOINT}/openai/deployments/${MODEL}/completions?api-version=2023-09-01-preview`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
