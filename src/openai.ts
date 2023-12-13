@@ -1,4 +1,6 @@
-const DEFAULT_DEV_API_KEY = import.meta.env.VITE_OPENAI_KEY;
+const DEFAULT_DEV_API_KEY = import.meta.env.AZURE_OPEN_AI_KEY;
+const ENDPOINT = import.meta.env.AZURE_OPEN_AI_ENDPOINT;
+const MODEL = import.meta.env.AZURE_OPEN_AI_MODEL;
 
 const OPEN_AI_SYSTEM_PROMPT = `the user is dictating with his or her camera on.
 they are showing you things visually and giving you text prompts.
@@ -45,14 +47,15 @@ export async function makeRequest(
   ];
 
   const body = {
-    model: "gpt-4-vision-preview",
+    model: MODEL,
     max_tokens: 4096,
     temperature: 0,
     messages,
   };
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    // const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch(`${ENDPOINT}/v1/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
